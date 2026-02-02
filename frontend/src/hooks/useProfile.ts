@@ -31,7 +31,7 @@ export function useProfile() {
     const deleteProfile = async () => {
         await userApi.deleteProfile();
         clearToken();
-        router.push("/");
+        router.replace("/");
     };
 
 
