@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/http";
+import { apiFetch } from "@/app/lib/http";
 
 export type LoginPayload = {
     email: string;

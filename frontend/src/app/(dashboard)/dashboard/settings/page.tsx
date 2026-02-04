@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
-import { useProfile } from "@/hooks/useProfile";
+import { useProfile } from "@/app/hooks/useProfile";
 
 export default function SettingsPage() {
     const { deleteProfile } = useProfile();

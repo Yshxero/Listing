@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useProfile } from "@/hooks/useProfile";
+import { useProfile } from "@/app/hooks/useProfile";
 import { User, Calendar } from "lucide-react";
 
 export default function ProfilePage() {

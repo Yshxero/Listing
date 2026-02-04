@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useAuth } from "@/hooks/useAuth";
 import type { LoginPayload } from "@/app/api/auth.api";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function LoginPage() {
   const [form, setForm] = useState<LoginPayload>({ email: "", password: "" });

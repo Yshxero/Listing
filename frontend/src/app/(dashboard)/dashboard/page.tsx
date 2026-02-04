@@ -1,14 +1,15 @@
 "use client"
 
-import { useTasks } from "@/hooks/useTask";
-import CalendarCard from "@/components/Calendar";
-import CalendarOld from "@/components/CalendarOld";
+import { useTasks } from "@/app/hooks/useTask";
+import CalendarCard from "@/app/components/Calendar";
+import CalendarOld from "@/app/components/CalendarOld";
 
 export default function DashboardPage() {
     const {
         tasks,
         pendingTasks,
         completedTasks,
+        missedTasks,
     } = useTasks();
 
     const totalTask = pendingTasks.length + completedTasks.length;
@@ -46,12 +47,11 @@ export default function DashboardPage() {
                         <div className="w-full h-80 bg-white rounded-3xl shadow-lg flex flex-col justify-center items-center">
                             <h3 className="text-black font-bold">Missed</h3>
                             <div className="w-50 h-50 rounded-full border-4 border-red-500 flex items-center justify-center mt-5">
-                                <p className="text-3xl font-black text-red-500">0</p>
+                                <p className="text-3xl font-black text-red-500">{missedTasks.length}</p>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
 
                 <div className="w-full mt-80">

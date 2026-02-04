@@ -1,5 +1,5 @@
-import type { User } from "@/lib/user.types";
-import { apiFetch } from "@/lib/http";
+import type { User } from "@/app/lib/user.types";
+import { apiFetch } from "@/app/lib/http";
 
 type ProfileDTO = {
     userID: string;

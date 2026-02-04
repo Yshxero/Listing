@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import CreateTask from "@/components/CreateTask";
-import TaskCard from "@/components/tasks/TaskCard";
-import type { Task, TaskPayload } from "@/lib/task.types";
-import { useTasks } from "@/hooks/useTask";
+import CreateTask from "@/app/components/CreateTask";
+import TaskCard from "@/app/components/tasks/TaskCard";
+import type { Task, TaskPayload } from "@/app/lib/task.types";
+import { useTasks } from "@/app/hooks/useTask";
 
 export default function TasksPage() {
     const {

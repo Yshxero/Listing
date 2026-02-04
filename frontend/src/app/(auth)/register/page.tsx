@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import type { RegisterPayload } from "@/app/api/auth.api";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function RegisterPage() {
     const [form, setForm] = useState<RegisterPayload>({ username: "", email: "", password: "", confirmPassword: "" });

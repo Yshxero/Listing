@@ -161,3 +161,33 @@ export const deleteTask = async (req: AuthRequest, res: Response, next: NextFunc
     }
 };
 
+
+export const getMissedTasks = async (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+
+        if (!req.user?.userID) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date();
+        end.setHours(23, 59, 59, 999);
+
+        const tasks = await taskModel
+            .find({
+                userId: req.user?.userID,
+                status: false,
+                deadline: { $lt: start },
+            })
+            .sort({ deadline: 1 });
+
+        res.status(200).json({ success: true, data: tasks });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Failed to fetch missed tasks" });
+    }
+};
+
+

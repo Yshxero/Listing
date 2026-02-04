@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function Home() {
   return (
 
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f8fafc]">
-      <div className="relative z-10 flex flex-col items-center gap-5 text-center px-6 py-12 bg-white/40 backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl max-w-2xl mx-4">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      <div className="relative z-10 flex flex-col items-center gap-5 text-center px-6 py-12 bg-white backdrop-blur-md border border-white/20 rounded-3xl -[0_25px_60px_rgba(255,255,255,0.45)] max-w-2xl mx-4">
         <header className="flex flex-col items-center">
           <span className="text-indigo-600 font-semibold tracking-widest uppercase text-sm mb-2">
             Welcome To

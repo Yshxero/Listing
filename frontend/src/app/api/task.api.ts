@@ -1,5 +1,5 @@
-import { apiFetch } from "@/lib/http";
-import type { Task, TaskPayload } from "../../lib/task.types";
+import { apiFetch } from "@/app/lib/http";
+import type { Task, TaskPayload } from "../lib/task.types";
 
 export const taskApi = {
     getTasks: () => apiFetch<{ data: Task[] }>("/tasks"),
@@ -30,4 +30,7 @@ export const taskApi = {
         apiFetch(`/tasks/${id}`, {
             method: "DELETE",
         }),
+
+    getMissedTasks: () => apiFetch<{ data: Task[] }>("/tasks/missed"),
+
 };
