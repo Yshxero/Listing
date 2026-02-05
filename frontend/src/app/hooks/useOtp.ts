@@ -136,6 +136,7 @@ export function useForgotPassword(args: ForgotPasswordArgs) {
             }
 
             onMessage?.("OTP sent successfully");
+            localStorage.setItem("resetEmail", email);
             router.push(`/verifyOtp?email=${encodeURIComponent(email)}`);
         } catch (error) {
             onMessage?.("Failed to send OTP");
@@ -188,6 +189,7 @@ export function useResetPassword(args: ResetPasswordArgs) {
 
             onMessage?.("Password reset successfully");
             localStorage.removeItem("resetToken");
+            localStorage.removeItem("resetEmail");
             router.push("/passwordChanged");
         } catch (error) {
             onMessage?.("Failed to reset password");
