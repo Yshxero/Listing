@@ -1,21 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { useResetPassword } from "@/app/hooks/useOtp";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function ResetPasswordPage() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    const searchParams = useSearchParams();
-    const email = searchParams?.get("email") ?? "";
-
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
     const [msg, setMsg] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const email = localStorage.getItem("resetEmail") || "";
 
     const { submit, loading } = useResetPassword({
         apiUrl: apiUrl || "",
