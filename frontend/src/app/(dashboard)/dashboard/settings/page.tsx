@@ -30,8 +30,8 @@ export default function SettingsPage() {
     };
 
     return (
-        <div className="w-full mx-auto p-6">
-            <h1 className="text-2xl font-black text-black mb-6">Settings</h1>
+        <div className="p-10 bg-white/150 backdrop-blur-2xl backdrop-saturate-100 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.35)] border border-white/30 ">
+            <h1 className="text-2xl font-black text-white mb-6">Settings</h1>
 
             <div className="border border-red-200 bg-red-50 rounded-2xl p-6">
                 <h2 className="text-lg font-bold text-red-600 mb-2 flex items-center gap-2">

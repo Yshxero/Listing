@@ -35,8 +35,8 @@ export default function TasksPage() {
     };
 
     return (
-        <div>
-            <h2 className="text-2xl font-black mb-6 text-black">Tasks</h2>
+        <div className="p-10 bg-white/150 backdrop-blur-2xl backdrop-saturate-100 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.35)] border border-white/30 ">
+            <h2 className="text-2xl font-black mb-6 text-white">Tasks</h2>
 
             <div className="relative grid grid-cols-2 mb-3">
                 <div>

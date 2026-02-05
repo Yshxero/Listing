@@ -1,7 +1,6 @@
 "use client"
 
 import { useTasks } from "@/app/hooks/useTask";
-import CalendarCard from "@/app/components/Calendar";
 import CalendarOld from "@/app/components/CalendarOld";
 
 export default function DashboardPage() {
@@ -15,11 +14,11 @@ export default function DashboardPage() {
     const totalTask = pendingTasks.length + completedTasks.length;
 
     return (
-        <div className="">
-            <h2 className="text-2xl font-black mb-6 text-black">Dashboard</h2>
+        <div className="p-10 bg-white/150 backdrop-blur-2xl backdrop-saturate-100 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.35)] border border-white/30 ">
+            <h2 className="text-2xl font-black mb-6 text-white">Dashboard</h2>
             <div className="w-full relative grid grid-cols-1 gap-6">
 
-                <div className="w-full p-2">
+                <div className="w-full">
 
                     <div className="w-full absolute grid grid-cols-4 justify-between gap-6">
 

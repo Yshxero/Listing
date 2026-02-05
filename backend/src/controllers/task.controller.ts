@@ -161,7 +161,6 @@ export const deleteTask = async (req: AuthRequest, res: Response, next: NextFunc
     }
 };
 
-
 export const getMissedTasks = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
 

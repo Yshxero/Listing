@@ -49,8 +49,8 @@ export default function ProfilePage() {
             : "—";
 
     return (
-        <div className="w-full mx-auto p-4">
-            <h2 className="text-2xl font-black text-black mb-6">Profile Settings</h2>
+        <div className="p-10 bg-white/150 backdrop-blur-2xl backdrop-saturate-100 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.35)] border border-white/30 ">
+            <h2 className="text-2xl font-black text-white mb-6">Profile Settings</h2>
 
             <div className="bg-white p-6 rounded-3xl shadow-xl border border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex items-start md:items-center gap-6 flex-1">

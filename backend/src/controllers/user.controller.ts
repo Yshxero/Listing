@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { userModel } from "../models/auth.model";
+import { UserModel } from "../models/user.model";
 import { taskModel } from "../models/task.model";
 import { AuthRequest } from "../middleware/auth.middleware";
 
 export const getAllUsers = async (req: AuthRequest, res: Response) => {
     try {
-        const users = await userModel.find().select("email");
+        const users = await UserModel.find().select("email");
         res.status(200).json(users);
     } catch (error) {
         console.log(error);
@@ -18,7 +18,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
         if (!req.user?.userID) {
             return res.status(401).json({ message: "Unauthorized" });
         }
-        const user = await userModel.findById(req.user.userID).select("username email lastSignIn");
+        const user = await UserModel.findById(req.user.userID).select("username email lastSignIn");
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -46,7 +46,7 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
         }
 
         if (email) {
-            const existingUser = await userModel.findOne({
+            const existingUser = await UserModel.findOne({
                 email,
                 _id: { $ne: req.user.userID },
             });
@@ -55,7 +55,7 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
             }
         }
 
-        const user = await userModel.findByIdAndUpdate(req.user.userID, {
+        const user = await UserModel.findByIdAndUpdate(req.user.userID, {
             ...(username ? { username } : {}),
             ...(email ? { email } : {}),
         }, { new: true, runValidators: true }).select("username email lastSignIn");
@@ -84,7 +84,7 @@ export const deleteProfile = async (req: AuthRequest, res: Response) => {
 
         await taskModel.deleteMany({ userId: req.user.userID });
 
-        const user = await userModel.findByIdAndDelete(req.user.userID);
+        const user = await UserModel.findByIdAndDelete(req.user.userID);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -94,7 +94,5 @@ export const deleteProfile = async (req: AuthRequest, res: Response) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
-
 
 
