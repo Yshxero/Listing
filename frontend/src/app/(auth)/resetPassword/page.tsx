@@ -1,19 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useResetPassword } from "@/app/hooks/useOtp";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 export default function ResetPasswordPage() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const router = useRouter();
 
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
+    const [email, setEmail] = useState("");
     const [msg, setMsg] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const email = localStorage.getItem("resetEmail") || "";
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+
+        const em = localStorage.getItem("resetEmail") || "";
+        const token = localStorage.getItem("resetToken") || "";
+
+        if (!em || !token) {
+            router.replace("/forgotPassword");
+            return;
+        }
+
+        setEmail(em);
+    }, [router]);
 
     const { submit, loading } = useResetPassword({
         apiUrl: apiUrl || "",

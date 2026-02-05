@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useResendOtp, useVerifyOtp } from "@/app/hooks/useOtp";
 
@@ -10,8 +10,7 @@ export default function VerifyOtpPage() {
 
     const [otp, setOtp] = useState("");
     const [msg, setMsg] = useState("");
-
-    const email = localStorage.getItem("resetEmail") || "";
+    const [email, setEmail] = useState("");
 
     const { timer, canResend, resendOtp, resendLoading } = useResendOtp({
         apiUrl: apiUrl || "",

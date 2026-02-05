@@ -95,9 +95,9 @@ export function useVerifyOtp(args: VerifyOtpArgs) {
                 setMsg(data.message || "OTP verify failed");
                 return;
             }
-
             localStorage.setItem("resetToken", data.resetToken);
-            router.push("/resetPassword?email=" + encodeURIComponent(email));
+            localStorage.setItem("resetEmail", email);
+            router.push("/resetPassword");
             onMessage?.("OTP verified successfully");
         } catch {
             setMsg("Network error");
@@ -137,7 +137,7 @@ export function useForgotPassword(args: ForgotPasswordArgs) {
 
             onMessage?.("OTP sent successfully");
             localStorage.setItem("resetEmail", email);
-            router.push(`/verifyOtp?email=${encodeURIComponent(email)}`);
+            router.push(`/verifyOtp`);
         } catch (error) {
             onMessage?.("Failed to send OTP");
         } finally {
@@ -150,13 +150,13 @@ export function useForgotPassword(args: ForgotPasswordArgs) {
 
 export function useResetPassword(args: ResetPasswordArgs) {
     const router = useRouter();
-    const resetToken = localStorage.getItem("resetToken") || "";
     const { apiUrl, email, password, confirm, onMessage } = args;
 
     const [loading, setLoading] = useState(false);
     const [msg, setMsg] = useState("");
 
     const submit = async (e: React.FormEvent) => {
+        const resetToken = localStorage.getItem("resetToken") || "";
         e.preventDefault();
         setLoading(true);
         setMsg("");
