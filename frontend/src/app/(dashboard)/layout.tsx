@@ -66,7 +66,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <main className="flex-1 h-full overflow-y-auto p-8">{children}</main>
 
             {deletedOpen && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+                <div className="fixed inset-0 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
 
                     <div className="relative w-full max-w-md mx-4 rounded-2xl bg-white p-6 shadow-2xl animate-scaleIn">
