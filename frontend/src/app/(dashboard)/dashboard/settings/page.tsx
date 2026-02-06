@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import { useProfile } from "@/app/hooks/useProfile";
+import { useRouter } from "next/navigation";
 
 export default function SettingsPage() {
+    const router = useRouter();
     const { deleteProfile } = useProfile();
+
     const [open, setOpen] = useState(false);
+    const [successOpen, setSuccessOpen] = useState(false);
+
     const [confirmText, setConfirmText] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [countdown, setCountdown] = useState(5);
 
     const CONFIRM_WORD = "Listing";
     const isMatch = confirmText === CONFIRM_WORD;
@@ -17,17 +23,53 @@ export default function SettingsPage() {
     const handleDelete = async () => {
         if (!isMatch) return;
 
-        setLoading(true);
-        setError("");
-
         try {
+            setLoading(true);
+            setError("");
+
             await deleteProfile();
+
+            setOpen(false);
+            setConfirmText("");
+
+            window.dispatchEvent(new Event("account-deleted"));
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Failed to delete account");
+            setError(err instanceof Error ? err.message : "Failed to delete profile");
         } finally {
             setLoading(false);
         }
     };
+
+    const goToLogin = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("tasks");
+
+        setSuccessOpen(false);
+        router.replace("/login");
+    };
+
+
+
+    useEffect(() => {
+        if (!successOpen) return;
+
+        setCountdown(5);
+
+        const interval = setInterval(() => {
+            setCountdown((c) => c - 1);
+        }, 1000);
+
+        const timeout = setTimeout(() => {
+            goToLogin();
+        }, 5000);
+
+        return () => {
+            clearInterval(interval);
+            clearTimeout(timeout);
+        };
+    }, [successOpen]);
+
 
     return (
         <div className="p-10 bg-white/150 backdrop-blur-2xl backdrop-saturate-100 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.35)] border border-white/30 ">
@@ -54,13 +96,11 @@ export default function SettingsPage() {
             {open && (
                 <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
                     <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md animate-scaleIn">
-                        <h3 className="text-lg font-bold text-black mb-2">
-                            Confirm Account Deletion
-                        </h3>
+                        <h3 className="text-lg font-bold text-black mb-2">Confirm Account Deletion</h3>
 
                         <p className="text-sm text-gray-600 mb-4">
-                            This action <strong>cannot</strong> be undone.
-                            To confirm, type <strong className="text-black">Listing</strong> below.
+                            This action <strong>cannot</strong> be undone. To confirm, type{" "}
+                            <strong className="text-black">Listing</strong> below.
                         </p>
 
                         <input
@@ -87,9 +127,7 @@ export default function SettingsPage() {
                             <button
                                 onClick={handleDelete}
                                 disabled={!isMatch || loading}
-                                className={`px-4 py-2 rounded-xl font-semibold text-white ${isMatch
-                                    ? "bg-red-600 hover:bg-red-700"
-                                    : "bg-red-300 cursor-not-allowed"
+                                className={`px-4 py-2 rounded-xl font-semibold text-white ${isMatch ? "bg-red-600 hover:bg-red-700" : "bg-red-300 cursor-not-allowed"
                                     }`}
                             >
                                 {loading ? "Deleting..." : "Delete Account"}

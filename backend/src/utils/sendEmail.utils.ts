@@ -36,8 +36,8 @@ const getTransporter = async () => {
         },
     });
 
-    console.log("📧 Ethereal account created:");
-    console.log("  user:", testAccount.user);
+    console.log("Ethereal account created:");
+    console.log("user:", testAccount.user);
 
     return transporter;
 };
@@ -53,7 +53,7 @@ export const sendEmail = async (to: string, subject: string, text: string) => {
     });
 
     const preview = nodemailer.getTestMessageUrl(info);
-    console.log("✅ Email sent");
-    console.log("🔗 Preview URL:", preview);
+    console.log("Email sent");
+    console.log("Preview URL:", preview);
 };
 */}

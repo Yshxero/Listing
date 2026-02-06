@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from "react";
 import { userApi } from "@/app/api/profile.api";
 import type { User } from "@/app/lib/user.types";
 import { clearToken, getTokenOrThrow } from "@/app/lib/authToken";
-import router from "next/router";
 
 type EditPayload = Partial<Pick<User, "username" | "email">>;
 
@@ -28,13 +27,6 @@ export function useProfile() {
         return updated;
     };
 
-    const deleteProfile = async () => {
-        await userApi.deleteProfile();
-        clearToken();
-        router.replace("/login");
-    };
-
-
     useEffect(() => {
         (async () => {
             try {
@@ -49,6 +41,13 @@ export function useProfile() {
             }
         })();
     }, [fetchProfile]);
+
+    const deleteProfile = useCallback(async () => {
+        const token = getTokenOrThrow();
+        await userApi.deleteProfile(token);
+        clearToken();
+        setProfile(null);
+    }, []);
 
     return { profile, loading, saving, error, refetch: fetchProfile, updateProfile, deleteProfile };
 }

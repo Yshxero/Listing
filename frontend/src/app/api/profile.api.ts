@@ -34,11 +34,13 @@ export const userApi = {
         return mapProfile(dto);
     },
 
-    deleteProfile: async (): Promise<void> => {
+    deleteProfile: async (token: string): Promise<void> => {
         await apiFetch("/users/deleteProfile", {
             method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             cache: "no-store",
         });
     },
-
 };
